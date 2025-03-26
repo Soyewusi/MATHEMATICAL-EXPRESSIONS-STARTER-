@@ -6,6 +6,8 @@ function calculate() {
 
     // Variable to hold the result
     let result;
+    let comparisonResult;
+    let explanation;
 
     // Ensure both numbers are entered
     if (isNaN(num1) || isNaN(num2)) {
@@ -13,16 +15,19 @@ function calculate() {
         return;
     }
 
-    // Perform the calculation based on the selected operator
+    // Perform the calculation or comparison based on the selected operator
     switch (operator) {
         case "+":
             result = num1 + num2;
+            explanation = `Adding ${num1} and ${num2}.`;
             break;
         case "-":
             result = num1 - num2;
+            explanation = `Subtracting ${num2} from ${num1}.`;
             break;
         case "*":
             result = num1 * num2;
+            explanation = `Multiplying ${num1} and ${num2}.`;
             break;
         case "/":
             if (num2 === 0) {
@@ -30,18 +35,37 @@ function calculate() {
                 return;
             }
             result = num1 / num2;
+            explanation = `Dividing ${num1} by ${num2}.`;
             break;
         case "**":
-            result = Math.pow(num1, num2); // Exponentiation (num1 raised to the power of num2)
+            result = Math.pow(num1, num2);
+            explanation = `${num1} raised to the power of ${num2}.`;
             break;
         case "%":
-            result = num1 % num2; // Modulo
+            result = num1 % num2;
+            explanation = `Modulo of ${num1} by ${num2}.`;
+            break;
+        case ">":
+            comparisonResult = num1 > num2;
+            explanation = `${num1} > ${num2}: ${comparisonResult}`;
+            break;
+        case "<":
+            comparisonResult = num1 < num2;
+            explanation = `${num1} < ${num2}: ${comparisonResult}`;
+            break;
+        case "!=":
+            comparisonResult = num1 !== num2;
+            explanation = `${num1} !== ${num2}: ${comparisonResult}`;
             break;
         default:
             document.getElementById("result").innerText = "Invalid operator.";
             return;
     }
 
-    // Display the result
-    document.getElementById("result").innerText = `Result: ${num1} ${operator} ${num2} = ${result}`;
+    // Display the result or comparison details
+    if (comparisonResult !== undefined) {
+        document.getElementById("result").innerText = `Comparison: ${explanation}`;
+    } else {
+        document.getElementById("result").innerText = `Result: ${result}. ${explanation}`;
+    }
 }
